@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Meme generator</title>
+    <link rel="icon" href="./imgs/logo.png" />
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/reset-css.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="init()">
+    <header>
+        <div class="screen" onclick="toggleMenu()"></div>
+        <div class="header-bar ">
+            <label class="logo flex" for=""><img src="./imgs/logo.png" class="logo-img" alt="logo" height="6" width="6">
+                <a class="logo-a" href="#">MEME</a></label>
+
+            <nav class="main-nav">
+                <ul class="clean-list flex">
+                    <li><a href="#wellcome">MEME</a></li>
+                    <li><a href="#about">BLOG</a></li>
+                    <li><a href="#contact">GET IN TOUCH</a></li>
+                </ul>
+            </nav>
+        </div>
+        <button id="mobile-menu-button" class="mobile-menu-button" onclick="toggleMenu()"><i
+                class="fas fa-bars"></i></button>
+    </header>
+    <main>
+
+        <section class="wellcome flex-well" id="wellcome">
+            <h1 class="title-search">Please select a photo</h1>
+            <div>
+                <input list="key-words" type="search" placeholder="Search photo:" id="search-input"
+                    onkeyup="onSearch(this.value)">
+                <datalist id="key-words">
+                </datalist>
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </section>
+
+        <section id="editor" class="editor d-hide">
+            <div id="canvas-conteiner">
+                <canvas id="canvas-body" onclick="canvasClicked(event)"></canvas>
+            </div>
+            <div id="edit" class="edit flex flex-direction ">
+                <div class="line-add-text">
+                    <input type="text" placeholder="add text" id="addTxt" class="addTxt" onkeyup="onInput(this.value)">
+                </div>
+                <div class="buttons-edit">
+                    <div class="efect-text">
+                        <button class="add-text edit-btn" onclick="onAddTxt()"><i class="fas fa-font"></i></button>
+
+                        <select class="edit-btn" onchange="onGetFont(this.value)">
+                            <option id="fonts" value="Impact"> Impact </option>
+                            <option id="fonts" value="Lato_regular">Lato regular</option>
+                            <option id="fonts" value="Lato_bold">Lato bold</option>
+                        </select>
+                        <input type="color" id="color-text" class="edit-btn" onchange="onGetColor(this.value,'line')">
+
+                        <button class="large-size-text edit-btn" id="size-text" onclick="onSmallTxt()"><i
+                                class="fas fa-minus"></i></button>
+
+                        <button class="small-size-text edit-btn" id="size-text" onclick="onLargeTxt()"><i
+                                class="fas fa-plus"></i></button>
+
+                    </div>
+                    <div class="move-text">
+                        <button class="delete-text edit-btn" onclick="onDeleteTxt(this)"><i
+                                class="fas fa-trash-alt"></i></button>
+                        <button onclick="onLeft()" class="text-begin edit-btn"><i
+                                class="fas fa-align-left"></i></button>
+                        <button onclick="onCenter()" class="text-mid edit-btn"><i
+                                class="fas fa-align-center"></i></button>
+                        <button onclick="onRight()" class="text-end edit-btn"><i
+                                class="fas fa-align-right"></i></button>
+                        <button onclick="onUp()" class="move-up edit-btn"><i class="fas fa-arrow-up"></i></button>
+                        <button onclick="onDown()" class="move-down edit-btn"><i class="fas fa-arrow-down"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="main-buttons">
+                <button class="close-edit main-btn" onclick="onCloseEdit()">✕ close-edit</button>
+                <a href="" type="button" class="download-canvas main-btn" onclick="downloadCanvas(this)">DOWNLOAD</a>
+            </div>
+        </section>
+        <section class="imgs">
+        </section>
+    </main>
+    <footer class="footer">
+        <section class="about" id="about">
+            <div class="photo-selfi">
+                <img class="img-footer" src="./imgs/logo.png">
+            </div>
+            <div class="text-about">
+                <h1>Maor Barel & Eliyahu Hillel</h1>
+                <h2>Web Developers</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia quam a placeat,
+                    reiciendis debitis voluptatum iure aliquid iste illum error quos ea ut! Deleniti
+                    provident modi eaque magnam, illo reiciendis..</p>
+                <ul class="Social clean-list flex align-center justify-content">
+                    <li><a href="#" class="facebook flex align-center justify-content Social-sites"><i
+                                class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" class="twitter flex align-center justify-content Social-sites"><i
+                                class="fab fa-twitter"></i></a></li>
+                    <li><a href="#" class="whatsapp flex align-center justify-content Social-sites"><i
+                                class="fab fa-whatsapp"></i></i></a></li>
+                    <li><a href="#" class="google flex align-center justify-content Social-sites"><i
+                                class="fab fa-google"></i></a></li>
+                </ul>
+            </div>
+        </section>
+        <section id="contact">
+            <h4>GET IN TOUCH</h4>
+            <form action="../index.html" method="post" class="message">
+                <h6>Youre E-mail</h6>
+                <input class="mailName" type="text" placeholder="name@example.com" required />
+                <h6>Subject</h6>
+                <input class="mailSubject" type="text" placeholder="type subject here" required />
+                <h6>Text</h6>
+                <textarea class="mailTxt" placeholder="type massage text here"></textarea>
+                <input class="btn-Contact" type="button" value="Submit" onclick="onMakeMail()" />
+            </form>
+        </section>
+    </footer>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/popper/popper.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="js/meme-service.js"></script>
+    <script src="js/meme-main.js"></script>
+</body>
+
+</html>
